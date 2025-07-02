@@ -15,6 +15,7 @@ export async function GET() {
     const diaries = await res.json();
     return NextResponse.json(diaries);
   } catch (error) {
+    console.error("Failed to fetch diaries:", error);
     return NextResponse.json(
       { message: "Failed to fetch diaries", error: error.message },
       { status: 500 }
