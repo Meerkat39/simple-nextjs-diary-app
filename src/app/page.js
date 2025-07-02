@@ -16,14 +16,13 @@ export default function Home() {
         }
         const data = await res.json();
         setDiaries(data);
-      } catch {
+      } catch (error) {
         console.error(error);
       }
     };
 
     fetchDiaries();
   }, []);
-
 
   // 3. 表示処理: diaries stateのデータを画面にレンダリング
   return (

@@ -36,13 +36,43 @@ const tagStateReducer = (state, action) => {
 };
 
 const DiaryForm = () => {
-  const [title, setTitle] = useState();
+  const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [mood, setMood] = useState("normal");
   const [tagState, dispatchTags] = useReducer(tagStateReducer, initialTagState);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const newDiary = {
+      date: new Date().toISOString().split("T")[0],
+      title,
+      content,
+      mood,
+      tags: tagState.tags,
+    };
+
+    try {
+      const res = await fetch("/api/diaries", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newDiary),
+      });
+
+      if (res.ok) {
+        console.log("日記の追加に成功");
+      } else {
+        console.log("日記の追加に失敗");
+      }
+    } catch (error) {
+      console.error("通信エラー: ", error);
+    }
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <TitleInput title={title} onChange={(e) => setTitle(e.target.value)} />
       <ContentInput
         content={content}
