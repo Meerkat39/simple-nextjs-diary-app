@@ -2,10 +2,12 @@
 
 import DiaryForm from "@/components/DiaryForm";
 import DiaryList from "@/components/DiaryList";
-import { useEffect, useState } from "react";
+import DiaryProvider from "@/contexts/DiaryProvider";
+import { useDispatchDiary } from "@/contexts/useDiaryHook";
+import { useEffect } from "react";
 
-export default function Home() {
-  const [diaries, setDiaries] = useState([]);
+function DiaryInitializer() {
+  const dispatchDiary = useDispatchDiary();
 
   useEffect(() => {
     const fetchDiaries = async () => {
@@ -15,20 +17,25 @@ export default function Home() {
           throw new Error("日記の取得に失敗しました。");
         }
         const data = await res.json();
-        setDiaries(data);
+        dispatchDiary({ type: "SET_DIARIES", payload: data });
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchDiaries();
-  }, []);
+  }, [dispatchDiary]);
 
+  return null;
+}
+
+export default function Home() {
   // 3. 表示処理: diaries stateのデータを画面にレンダリング
   return (
-    <>
+    <DiaryProvider>
+      <DiaryInitializer />
       <DiaryForm />
-      <DiaryList diaries={diaries} />
-    </>
+      <DiaryList />
+    </DiaryProvider>
   );
 }

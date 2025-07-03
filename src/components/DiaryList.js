@@ -1,6 +1,8 @@
+import { useDiaries } from "@/contexts/useDiaryHook";
 import DiaryItem from "./DiaryItem";
 
-const DiaryList = ({ diaries }) => {
+const DiaryList = () => {
+  const diaries = useDiaries();
   return (
     <div>
       {diaries.map((diary) => {

@@ -1,5 +1,6 @@
 "use client";
 
+import { useDispatchDiary } from "@/contexts/useDiaryHook";
 import { useReducer, useState } from "react";
 import ContentInput from "./ContentInput";
 import InputTag from "./InputTag";
@@ -30,6 +31,11 @@ const tagStateReducer = (state, action) => {
         ...state,
         tags: state.tags.filter((tag) => tag !== action.payload),
       };
+    case "RESET_TAGS":
+      return {
+        tags: [],
+        currentTag: "",
+      };
     default:
       return state;
   }
@@ -40,6 +46,7 @@ const DiaryForm = () => {
   const [content, setContent] = useState("");
   const [mood, setMood] = useState("normal");
   const [tagState, dispatchTags] = useReducer(tagStateReducer, initialTagState);
+  const dispatchDiary = useDispatchDiary();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -62,7 +69,12 @@ const DiaryForm = () => {
       });
 
       if (res.ok) {
-        console.log("日記の追加に成功");
+        const addedDiary = await res.json();
+        dispatchDiary({ type: "ADD_DIARY", payload: addedDiary });
+        setTitle("");
+        setContent("");
+        setMood("normal");
+        dispatchTags({ type: "RESET_TAGS" });
       } else {
         console.log("日記の追加に失敗");
       }

@@ -10,7 +10,7 @@ const DiaryItem = ({ diary }) => {
     >
       <h2>{diary.title}</h2>
       <p>{diary.content}</p>
-      <small>{new Date(diary.data).toLocaleDateString()}</small>
+      <small>{new Date(diary.date).toLocaleDateString()}</small>
       <p>気分: {diary.mood}</p>
       <div>
         {diary.tags.map((tag, index) => (
