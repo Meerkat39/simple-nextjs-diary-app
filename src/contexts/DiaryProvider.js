@@ -10,7 +10,11 @@ const diaryReducer = (state, action) => {
       return action.payload.sort((a, b) => new Date(b.date) - new Date(a.date));
     }
     case "ADD_DIARY": {
-      return [...state, action.payload];
+      const newState = [...state, action.payload];
+      return newState.sort((a, b) => new Date(b.date) - new Date(a.date));
+    }
+    case "DELETE_DIARY": {
+      return state.filter((diary) => diary.id != action.payload.id);
     }
     default:
       return state;

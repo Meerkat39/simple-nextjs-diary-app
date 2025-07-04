@@ -1,3 +1,5 @@
+// src/components/DiaryForm.js
+
 "use client";
 
 import { useDispatchDiary } from "@/contexts/useDiaryHook";
@@ -32,10 +34,7 @@ const tagStateReducer = (state, action) => {
         tags: state.tags.filter((tag) => tag !== action.payload),
       };
     case "RESET_TAGS":
-      return {
-        tags: [],
-        currentTag: "",
-      };
+      return initialTagState;
     default:
       return state;
   }
@@ -84,21 +83,20 @@ const DiaryForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="p-6 mb-8 bg-white border border-gray-200 rounded-lg shadow-md space-y-6">
       <TitleInput title={title} onChange={(e) => setTitle(e.target.value)} />
-      <ContentInput
-        content={content}
-        onChange={(e) => setContent(e.target.value)}
-      />
+      <ContentInput content={content} onChange={(e) => setContent(e.target.value)} />
       <MoodInput mood={mood} onChange={(e) => setMood(e.target.value)} />
       <div>
-        <InputTag
-          currentTag={tagState.currentTag}
-          dispatchTags={dispatchTags}
-        />
+        <InputTag currentTag={tagState.currentTag} dispatchTags={dispatchTags} />
         <TagList tags={tagState.tags} dispatchTags={dispatchTags} />
       </div>
-      <button type="submit">日記を追加</button>
+      <button 
+        type="submit"
+        className="w-full px-4 py-2 font-semibold text-white bg-green-600 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200"
+      >
+        日記を追加
+      </button>
     </form>
   );
 };

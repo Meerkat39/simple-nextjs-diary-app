@@ -2,7 +2,7 @@
   "diaries": [
     {
       "id": "1",
-      "data": "2025-06-30",
+      "date": "2025-06-30",
       "title": "はじめまして",
       "content": "おはようございます。",
       "mood": "normal",
@@ -12,7 +12,7 @@
     },
     {
       "id": "2",
-      "data": "2025-07-01",
+      "date": "2025-07-01",
       "title": "Next.js学習開始",
       "content": "日記アプリを開発中。",
       "mood": "normal",
@@ -22,13 +22,13 @@
       ]
     },
     {
-      "id": "dc75",
-      "date": "2025-07-03",
-      "title": "wef",
-      "content": "ewfa",
+      "id": "f081",
+      "date": "2025-07-04",
+      "title": "ewfa",
+      "content": "gwae",
       "mood": "normal",
       "tags": [
-        "wef"
+        "gwae"
       ]
     }
   ]
