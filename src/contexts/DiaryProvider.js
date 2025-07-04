@@ -16,6 +16,11 @@ const diaryReducer = (state, action) => {
     case "DELETE_DIARY": {
       return state.filter((diary) => diary.id != action.payload.id);
     }
+    case "UPDATE_DIARY": {
+      return state.map((diary) => {
+        return diary.id === action.payload.id ? action.payload : diary;
+      });
+    }
     default:
       return state;
   }
